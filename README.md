@@ -1,2 +1,2 @@
 # LI-bioinformatics
-General scripts/code/pipeline for use with data analysis at LI
+General scripts/code/pipeline/tutorials for use with data analysis at LI
