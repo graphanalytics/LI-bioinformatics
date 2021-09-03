@@ -1,2 +1,2 @@
 # LI-bioinformatics
-General scripts/code/pipeline for use with downstream analysis of large scale data
+General scripts/code/pipeline for use with data analysis at LI
