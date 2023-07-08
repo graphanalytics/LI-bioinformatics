@@ -15,10 +15,7 @@ library(stringi)
 
 # Set the directory path for input and output
 # Place all your GSEA enrichment report TSV files in one folder ('gseareports' in the below example)
-#directorypath="/Users/nagarajanv/OneDrive - National Institutes of Health/Ryan_Vijay/NewAnalysis2021/GSEA_Results/tsv/"
-#directorypath="/Users/nagarajanv/OneDrive - National Institutes of Health/Ryan_Vijay/NewAnalysisCytotoxic2021/GSEA_Results/tsv/"
-directorypath="/Users/nagarajanv/OneDrive - National Institutes of Health/Ryan_Vijay/NewAnalysisCD4CD8_2021/tsv/"
-
+#directorypath="/Users/GSEA_Results/tsv/"
 
 # Initiate list variable to store enrichment lists
 datalistentrez=list()
@@ -26,26 +23,7 @@ datalistentrez=list()
 # Assign sample names here
 # Sample name should be the prefix of the GSEA enrichment report TSV files
 # For example, KO_neg is the sample name, if the file name is KO_neg.tsv
-#samples=c("MLN_LAQ","SILP_LAQ","MLN_PBS","SILP_PBS")
-#samples=c("IEL_CD4_POS","IEL_DP_POS","IEL_CD8p_CD90p_POS","IEL_CD8p_CD90n_POS","SI_CD4_POS","SI_DP_POS","SI_CD8p_CD90p_POS","MES_CD4_POS","MES_DP_POS","MES_CD8p_CD90p_POS","PLN_CD4_POS","PLN_CD8p_CD90p_POS","IEL_CD4_NEG","IEL_DP_NEG","IEL_CD8p_CD90p_NEG","IEL_CD8p_CD90n_NEG","SI_CD4_NEG","SI_DP_NEG","SI_CD8p_CD90p_NEG","MES_CD4_NEG","MES_DP_NEG","MES_CD8p_CD90p_NEG","PLN_CD4_NEG","PLN_CD8p_CD90p_NEG")
-#samples=c("IEL_CD4_POS","IEL_DP_POS","IEL_CD8p_CD90p_POS","IEL_CD8p_CD90n_POS","SI_CD4_POS","SI_DP_POS","SI_CD8p_CD90p_POS","MES_CD4_POS","MES_DP_POS","MES_CD8p_CD90p_POS","PLN_CD4_POS","PLN_CD8p_CD90p_POS")
-#samples=c("IEL_CD4","IEL_DP","IEL_CD8p_CD90p","IEL_CD8p_CD90n","SI_CD4","SI_DP","SI_CD8p_CD90p","MES_CD4","MES_DP","MES_CD8p_CD90p","PLN_CD4","PLN_CD8p_CD90p")
-#samples=c("PLN_NT_d0_pos","PLN_ST_d0_pos","PLN_LT_d0_pos","MLN_NT_d0_pos","MLN_ST_d0_pos","MLN_LT_d0_pos","SILP_NT_d0_pos","SILP_ST_d0_pos","SILP_LT_d0_pos","IEL_NT_d0_pos","IEL_ST_d0_pos","IEL_LT_d0_pos","PLN_NT_d7_pos","PLN_ST_d7_pos","PLN_LT_d7_pos","MLN_NT_d7_pos","MLN_ST_d7_pos","MLN_LT_d7_pos","SILP_NT_d7_pos","SILP_ST_d7_pos","SILP_LT_d7_pos","IEL_NT_d7_pos","IEL_ST_d7_pos","IEL_LT_d7_pos","PLN_NT_d0_neg","PLN_ST_d0_neg","PLN_LT_d0_neg","MLN_NT_d0_neg","MLN_ST_d0_neg","MLN_LT_d0_neg","SILP_NT_d0_neg","SILP_ST_d0_neg","SILP_LT_d0_neg","IEL_NT_d0_neg","IEL_ST_d0_neg","IEL_LT_d0_neg","PLN_NT_d7_neg","PLN_ST_d7_neg","PLN_LT_d7_neg","MLN_NT_d7_neg","MLN_ST_d7_neg","MLN_LT_d7_neg","SILP_NT_d7_neg","SILP_ST_d7_neg","SILP_LT_d7_neg","IEL_NT_d7_neg","IEL_ST_d7_neg","IEL_LT_d7_neg")
-#samples=c("PLN_NT_d0_pos","PLN_ST_d0_pos","PLN_LT_d0_pos","MLN_NT_d0_pos","MLN_ST_d0_pos","MLN_LT_d0_pos","SILP_NT_d0_pos","SILP_ST_d0_pos","SILP_LT_d0_pos","IEL_NT_d0_pos","IEL_ST_d0_pos","IEL_LT_d0_pos","PLN_NT_d7_pos","PLN_ST_d7_pos","PLN_LT_d7_pos","MLN_NT_d7_pos","MLN_ST_d7_pos","MLN_LT_d7_pos","SILP_NT_d7_pos","SILP_ST_d7_pos","SILP_LT_d7_pos","IEL_NT_d7_pos","IEL_ST_d7_pos","IEL_LT_d7_pos")
-#samples=c("PLN_NT_d0_neg","PLN_ST_d0_neg","PLN_LT_d0_neg","MLN_NT_d0_neg","MLN_ST_d0_neg","MLN_LT_d0_neg","SILP_NT_d0_neg","SILP_ST_d0_neg","SILP_LT_d0_neg","IEL_NT_d0_neg","IEL_ST_d0_neg","IEL_LT_d0_neg","PLN_NT_d7_neg","PLN_ST_d7_neg","PLN_LT_d7_neg","MLN_NT_d7_neg","MLN_ST_d7_neg","MLN_LT_d7_neg","SILP_NT_d7_neg","SILP_ST_d7_neg","SILP_LT_d7_neg","IEL_NT_d7_neg","IEL_ST_d7_neg","IEL_LT_d7_neg")
-#samples=c("PLN_NT_d0","PLN_ST_d0","PLN_LT_d0","MLN_NT_d0","MLN_ST_d0","MLN_LT_d0","SILP_NT_d0","SILP_ST_d0","SILP_LT_d0","IEL_NT_d0","IEL_ST_d0","IEL_LT_d0","PLN_NT_d7","PLN_ST_d7","PLN_LT_d7","MLN_NT_d7","MLN_ST_d7","MLN_LT_d7","SILP_NT_d7","SILP_ST_d7","SILP_LT_d7","IEL_NT_d7","IEL_ST_d7","IEL_LT_d7")
-
-#samples=c("IEL_LT_d0.vs..IEL_NT_d0",	"IEL_LT_d7.vs..IEL_NT_d0",	"IEL_NT_d7.vs..IEL_NT_d0",	"IEL_ST_d0.vs..IEL_NT_d0",	"IEL_ST_d7.vs..IEL_NT_d0",	"MLN_LT_d0.vs..IEL_NT_d0",	"MLN_LT_d7.vs..IEL_NT_d0",	"MLN_NT_d0.vs..IEL_NT_d0",	"MLN_NT_d7.vs..IEL_NT_d0",	"MLN_ST_d0.vs..IEL_NT_d0",	"MLN_ST_d7.vs..IEL_NT_d0",	"PLN_LT_d0.vs..IEL_NT_d0",	"PLN_LT_d7.vs..IEL_NT_d0",	"PLN_NT_d0.vs..IEL_NT_d0",	"PLN_NT_d7.vs..IEL_NT_d0",	"PLN_ST_d0.vs..IEL_NT_d0",	"PLN_ST_d7.vs..IEL_NT_d0",	"SILP_LT_d0.vs..IEL_NT_d0",	"SILP_LT_d7.vs..IEL_NT_d0",	"SILP_NT_d0.vs..IEL_NT_d0",	"SILP_NT_d7.vs..IEL_NT_d0",	"SILP_ST_d0.vs..IEL_NT_d0",	"SILP_ST_d7.vs..IEL_NT_d0")
-#samples=c("IEL_LT_d0.vs..SILP_NT_d0",	"IEL_LT_d7.vs..SILP_NT_d0",	"IEL_NT_d0.vs..SILP_NT_d0",	"IEL_NT_d7.vs..SILP_NT_d0",	"IEL_ST_d0.vs..SILP_NT_d0",	"IEL_ST_d7.vs..SILP_NT_d0",	"MLN_LT_d0.vs..SILP_NT_d0",	"MLN_LT_d7.vs..SILP_NT_d0",	"MLN_NT_d0.vs..SILP_NT_d0",	"MLN_NT_d7.vs..SILP_NT_d0",	"MLN_ST_d0.vs..SILP_NT_d0",	"MLN_ST_d7.vs..SILP_NT_d0",	"PLN_LT_d0.vs..SILP_NT_d0",	"PLN_LT_d7.vs..SILP_NT_d0",	"PLN_NT_d0.vs..SILP_NT_d0",	"PLN_NT_d7.vs..SILP_NT_d0",	"PLN_ST_d0.vs..SILP_NT_d0",	"PLN_ST_d7.vs..SILP_NT_d0",	"SILP_LT_d0.vs..SILP_NT_d0",	"SILP_LT_d7.vs..SILP_NT_d0",	"SILP_NT_d7.vs..SILP_NT_d0",	"SILP_ST_d0.vs..SILP_NT_d0",	"SILP_ST_d7.vs..SILP_NT_d0")
-#samples=c("IEL_LT_d0.vs..MLN_NT_d0",	"IEL_LT_d7.vs..MLN_NT_d0",	"IEL_NT_d0.vs..MLN_NT_d0",	"IEL_NT_d7.vs..MLN_NT_d0",	"IEL_ST_d0.vs..MLN_NT_d0",	"IEL_ST_d7.vs..MLN_NT_d0",	"MLN_LT_d0.vs..MLN_NT_d0",	"MLN_LT_d7.vs..MLN_NT_d0",	"MLN_NT_d7.vs..MLN_NT_d0",	"MLN_ST_d0.vs..MLN_NT_d0",	"MLN_ST_d7.vs..MLN_NT_d0",	"PLN_LT_d0.vs..MLN_NT_d0",	"PLN_LT_d7.vs..MLN_NT_d0",	"PLN_NT_d0.vs..MLN_NT_d0",	"PLN_NT_d7.vs..MLN_NT_d0",	"PLN_ST_d0.vs..MLN_NT_d0",	"PLN_ST_d7.vs..MLN_NT_d0",	"SILP_LT_d0.vs..MLN_NT_d0",	"SILP_LT_d7.vs..MLN_NT_d0",	"SILP_NT_d0.vs..MLN_NT_d0",	"SILP_NT_d7.vs..MLN_NT_d0",	"SILP_ST_d0.vs..MLN_NT_d0",	"SILP_ST_d7.vs..MLN_NT_d0")
-#samples=c("IEL_LT_d0.vs..PLN_NT_d0",	"IEL_LT_d7.vs..PLN_NT_d0",	"IEL_NT_d0.vs..PLN_NT_d0",	"IEL_NT_d7.vs..PLN_NT_d0",	"IEL_ST_d0.vs..PLN_NT_d0",	"IEL_ST_d7.vs..PLN_NT_d0",	"MLN_LT_d0.vs..PLN_NT_d0",	"MLN_LT_d7.vs..PLN_NT_d0",	"MLN_NT_d0.vs..PLN_NT_d0",	"MLN_NT_d7.vs..PLN_NT_d0",	"MLN_ST_d0.vs..PLN_NT_d0",	"MLN_ST_d7.vs..PLN_NT_d0",	"PLN_LT_d0.vs..PLN_NT_d0",	"PLN_LT_d7.vs..PLN_NT_d0",	"PLN_NT_d7.vs..PLN_NT_d0",	"PLN_ST_d0.vs..PLN_NT_d0",	"PLN_ST_d7.vs..PLN_NT_d0",	"SILP_LT_d0.vs..PLN_NT_d0",	"SILP_LT_d7.vs..PLN_NT_d0",	"SILP_NT_d0.vs..PLN_NT_d0",	"SILP_NT_d7.vs..PLN_NT_d0",	"SILP_ST_d0.vs..PLN_NT_d0",	"SILP_ST_d7.vs..PLN_NT_d0")
-
-#samples=c("IEL_ST_d0.vs..IEL_NT_d0","IEL_LT_d0.vs..IEL_NT_d0","IEL_NT_d7.vs..IEL_NT_d0","IEL_ST_d7.vs..IEL_NT_d0","IEL_LT_d7.vs..IEL_NT_d0")
-#samples=c("SILP_ST_d0.vs..SILP_NT_d0","SILP_LT_d0.vs..SILP_NT_d0","SILP_NT_d7.vs..SILP_NT_d0","SILP_ST_d7.vs..SILP_NT_d0","SILP_LT_d7.vs..SILP_NT_d0")
-#samples=c("MLN_ST_d0.vs..MLN_NT_d0","MLN_LT_d0.vs..MLN_NT_d0","MLN_NT_d7.vs..MLN_NT_d0","MLN_ST_d7.vs..MLN_NT_d0","MLN_LT_d7.vs..MLN_NT_d0")
-#samples=c("PLN_ST_d0.vs..PLN_NT_d0","PLN_LT_d0.vs..PLN_NT_d0","PLN_NT_d7.vs..PLN_NT_d0","PLN_ST_d7.vs..PLN_NT_d0","PLN_LT_d7.vs..PLN_NT_d0")
-
-samples=c("IEL_CD4+CD8+_neg","IEL_CD8+CD90-_neg","MES_CD4+CD8+_neg","MES_CD8+_neg","PLN_CD8+_neg","SI_CD4+_neg","IEL_CD4+_neg","IEL_CD8+_neg","MES_CD4+_neg","PLN_CD4+_neg","SI_CD4+CD8+_neg","SI_CD8+_neg","IEL_CD4+CD8+_pos","IEL_CD8+CD90-_pos","MES_CD4+CD8+_pos","MES_CD8+_pos","PLN_CD8+_pos","SI_CD4+_pos","IEL_CD4+_pos","IEL_CD8+_pos","MES_CD4+_pos","PLN_CD4+_pos","SI_CD4+CD8+_pos","SI_CD8+_pos")
+samples=c("IEL_CD4+CD8+_neg","IEL_CD8+CD90-_neg","MES_CD4+CD8+_neg","MES_CD8+_neg","PLN_CD8+_neg","SI_CD4+_neg")
 
 ############################### Data extraction (for postive files)
 # For each sample, open the GSEA report TSV and combine them in one variable 
@@ -67,6 +45,7 @@ for(i in samples)
   # combine data in datalistentrez variable
   datalistentrez[[i]]=as.data.frame(onedataset)
 }
+
 datalistentrez[1]
 ############################### Extract data for ggplot
 # Generate common unique lists
@@ -81,15 +60,14 @@ for (j in seq(1,length(datalistentrez),1))
   # combine pathway names from all samples
   alllists<-append(alllists,newlist)
 }
-#alllists<-list("T CELL ACTIVATION")
+
 # generate unique combined pathway names list
 alllists<-unlist(alllists)
 alllists<-unique(alllists)
+
+# If you want to remove any pathways, use below example code
 #alllists<-alllists[alllists != "T CELL DIFFERENTIATION IN THYMUS"]
 #alllists<-alllists[alllists != "POSITIVE THYMIC T CELL SELECTION"]
-#alllists<-alllists[alllists != "NEGATIVE THYMIC T CELL SELECTION"]
-#alllists<-alllists[alllists != "ANTIGEN PROCESSING AND PRESENTATION"]
-#alllists<-alllists[alllists != "HEMOPOIESIS"]
 
 #View(as.data.frame(alllists))
 length(alllists)
@@ -137,11 +115,15 @@ for (k in seq(1,length(datalistentrez),1))
     }
   }
 }
+
 #View(updownpathwaystable)
+
 # Add column headers and remove 'KEGG' from pathway names
 colnames(updownpathwaystable)=c("Term","Count","PValue","Sample")
+
 #updownpathwaystable=separate(data=updownpathwaystable, col = Term, into=c(NA,"right"), sep="_", extra = "merge")
 head(updownpathwaystable)
+
 # Add column headers again
 #colnames(updownpathwaystable)=c("Term","Count","PValue","Sample")
 
@@ -180,14 +162,15 @@ for(d in alllists)
   #  updownpathwaystable<-rbind(updownpathwaystable,fordataframe)
   #}
 }
+
 #View(updownpathwaystablenosingles)
 #Convert to title case
 updownpathwaystablenosingles$Term <- stri_trans_totitle(as.character(updownpathwaystablenosingles$Term))
+
 # Order columns based on count
 #updownpathwaystablenosingles$Term<-factor(updownpathwaystablenosingles$Term, levels=unique(updownpathwaystablenosingles$Term[order(as.numeric(updownpathwaystablenosingles$Count),decreasing = TRUE)]))
 updownpathwaystablenosingles$Term<-factor(updownpathwaystablenosingles$Term, levels=unique(updownpathwaystablenosingles$Term[order(as.numeric(updownpathwaystablenosingles$Count))]))
 #View(updownpathwaystablenosingles)
-
 
 ############################Plot
 S1=updownpathwaystablenosingles %>% 
@@ -209,6 +192,7 @@ S1=updownpathwaystablenosingles %>%
     panel.grid.major = element_line(size = (0.2), colour="grey"))
 # Run S1 to plot
 S1
+
 # Save the above plot
 #ggsave("gsea-IEL_NT_d0_vs_all-neg.png", width = 12, height = 10, units = "cm")
 
