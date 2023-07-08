@@ -1,3 +1,6 @@
+# Author : Vijay Nagarajan PhD
+# Institute : NEI/NIH
+
 # This R script reads lists of GSEA generated enrichment TSV files, 
 # and generates a plot with all the results in one panel
 
